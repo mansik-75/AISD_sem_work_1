@@ -10,7 +10,7 @@ class AVLTree(object):
     def __init__(self):
         self.root = None
 
-    def find(self, key):
+    def __getitem__(self, key):
         if not self.root:
             return None
 
