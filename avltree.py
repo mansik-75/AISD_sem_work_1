@@ -63,7 +63,7 @@ class AVLTree(object):
         else:
             return node.height
 
-    def left_left_rotate(self, node):
+    def low_right_rotate(self, node):
         k1 = node.left
         node.left = k1.right
         k1.right = node
@@ -71,7 +71,7 @@ class AVLTree(object):
         k1.height = max(self.height(k1.left), node.height) + 1
         return k1
 
-    def right_right_rotate(self, node):
+    def low_left_rotate(self, node):
         k1 = node.right
         node.right = k1.left
         k1.left = node
@@ -79,13 +79,21 @@ class AVLTree(object):
         k1.height = max(self.height(k1.right), node.height) + 1
         return k1
 
-    def right_left_rotate(self, node):
-        node.right = self.left_left_rotate(node.right)
-        return self.right_right_rotate(node)
+    def high_left_rotate(self, node):
+        k1 = node.right.left
+        k1.right, node.right.left = node.right, k1.right
+        k1.left, node.right = node, k1.left
+        node.height = max(self.height(node.right), self.height(node.left)) + 1
+        k1.height = max(self.height(k1.right), node.height) + 1
+        return k1
 
-    def left_right_rotate(self, node):
-        node.left = self.right_right_rotate(node.left)
-        return self.left_left_rotate(node)
+    def high_right_rotate(self, node):
+        k1 = node.left.right
+        k1.left, node.left.right = node.left, k1.left
+        k1.right, node.left = node, k1.right
+        node.height = max(self.height(node.right), self.height(node.left)) + 1
+        k1.height = max(self.height(k1.right), node.height) + 1
+        return k1
 
     def insert(self, key):
         if not self.root:
@@ -102,23 +110,23 @@ class AVLTree(object):
             node.left = self._insert(key, node.left)
             if (self.height(node.left) - self.height(node.right)) == 2:
                 if key < node.left.data:
-                    node = self.left_left_rotate(node)
+                    node = self.low_right_rotate(node)
                 else:
-                    node = self.left_right_rotate(node)
+                    node = self.high_right_rotate(node)
 
         elif key > node.data:
             node.right = self._insert(key, node.right)
             if (self.height(node.right) - self.height(node.left)) == 2:
                 if key > node.right.data:
-                    node = self.right_right_rotate(node)
+                    node = self.low_left_rotate(node)
                 else:
-                    node = self.left_right_rotate(node)
+                    node = self.high_left_rotate(node)
 
         node.height = max(self.height(node.right), self.height(node.left)) + 1
         return node
 
-    def pre_order_traverse(self, node):
+    def pre_order_traverse(self, node, depth=0):
         if node:
-            print(node.data)
-            self.pre_order_traverse(node.left)
-            self.pre_order_traverse(node.right)
+            print(depth, node.data)
+            self.pre_order_traverse(node.left, depth + 1)
+            self.pre_order_traverse(node.right, depth + 1)
