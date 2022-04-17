@@ -1,3 +1,6 @@
+from decorator import insert_decorator
+
+
 class TreeNode(object):
     def __init__(self, data, left=None, right=None):
         self.data = data
@@ -9,6 +12,7 @@ class TreeNode(object):
 class AVLTree(object):
     def __init__(self):
         self.root = None
+        self.count = 0
 
     def __getitem__(self, key):
         if not self.root:
@@ -79,7 +83,9 @@ class AVLTree(object):
         k1.height = max(self.height(k1.right), node.height) + 1
         return k1
 
+    @insert_decorator
     def insert(self, key):
+        self.count += 1
         self.root = self._insert(key, self.root)
 
     def _insert(self, key, node):
@@ -111,6 +117,7 @@ class AVLTree(object):
         return node
 
     def delete(self, key):
+        self.count -= 1
         self._delete(key, self.root)
 
     def _delete(self, key, node):
