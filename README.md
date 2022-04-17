@@ -6,3 +6,5 @@
 Дамир - помочь Мендияру\
 Раниль - смонтировать видос\
 Риналь - озвучить видос
+
+Ссылка на датасеты: https://drive.google.com/drive/folders/1ZuZxaPMnrXiV6H2MRjQPzV79t2cMH_nD?usp=sharing
