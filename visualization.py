@@ -1,5 +1,6 @@
 import statistics
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pylab
@@ -19,11 +20,15 @@ for i in range(1, 6):
             # keys = list(map(lambda x: x[5:-1],re.findall(r'key: \d*,', data)))
             # leaf_count[i % 100].append(int(data[data.find('count: ') + 7:]))
             # time = list(map(lambda x: float(x[6: -1]), time[:-1]))
+    index = 100
     for i in range(z):
-        time[i] = (sum(time[i]) / len(time[i])) # avg value
+        # print(round((sum(time[i]) / len(time[i])), 4))
+        time[i] = round((sum(time[i]) / len(time[i])), 4)  # avg value
         # time[i] = statistics.median(time[i])  # median
-    df.append(pd.DataFrame({'time': time, 'leaf_count': [i for i in range(z)]}))
+    df.append(pd.DataFrame(
+        {'time': [time[i] for i in range(0, len(time), index)], 'leaf_count': [i for i in range(0, z, index)]}))
 
+plt.figure(figsize=(8, 6))
 ax = pylab.subplot(3, 3, 1)
 ax.set_xlabel('leaf count')
 ax.set_ylabel('time')
