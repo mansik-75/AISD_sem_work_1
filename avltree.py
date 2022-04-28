@@ -1,4 +1,4 @@
-from decorator import insert_decorator
+from decorator import insert_decorator, delete_decorator
 
 
 class TreeNode(object):
@@ -116,6 +116,7 @@ class AVLTree(object):
 
         return node
 
+    @delete_decorator
     def delete(self, key):
         self.count -= 1
         self._delete(key, self.root)
