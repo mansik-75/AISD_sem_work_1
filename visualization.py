@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 import matplotlib.pyplot as plt
-=======
-# import statistics
-
->>>>>>> origin/main
 import numpy as np
 import pandas as pd
 import pylab
@@ -13,28 +8,19 @@ for i in range(1, 6):
     j = 10 if i == 4 else 100
     if i == 5:
         j = 1
-    z = int(10 ** (2 + i))
+    z = int(10  (2 + i))
     with open(f"output_data_{i}.txt", 'r', encoding='utf-8') as f:
         time = [[] for _ in range(z)]
         for i in range(z * j):
             data = f.readline()
             time[i % z].append(np.float32(data[data.find('time: ') + 6: data.find(', leaf')]))
-<<<<<<< HEAD
     index = 100
     for i in range(z):
-        time[i] = round((sum(time[i]) / len(time[i])), 4)  # avg value
+        time[i] = round((sum(time[i]) / len(time[i])), 4)
     df.append(pd.DataFrame(
         {'time': [time[i] for i in range(0, len(time), index)], 'leaf_count': [i for i in range(0, z, index)]}))
-=======
-            # keys = list(map(lambda x: x[5:-1],re.findall(r'key: \d*,', data)))
-            # leaf_count[i % 100].append(int(data[data.find('count: ') + 7:]))
-            # time = list(map(lambda x: float(x[6: -1]), time[:-1]))
-    for i in range(z):
-        time[i] = (sum(time[i]) / len(time[i])) # avg value
-        # time[i] = statistics.median(time[i])  # median
-    df.append(pd.DataFrame({'time': time, 'leaf_count': [i for i in range(z)]}))
->>>>>>> origin/main
 
+plt.figure(figsize=(8, 6))
 ax = pylab.subplot(3, 3, 1)
 ax.set_xlabel('leaf count')
 ax.set_ylabel('time')
@@ -61,23 +47,21 @@ ax.set_ylabel('time')
 pylab.plot(df[4]['leaf_count'], df[4]['time'])
 pylab.title('1 дерево в котором 10000000')
 pylab.show()
-<<<<<<< HEAD
 
 df2 = []
 for i in range(1, 6):
     j = 10 if i == 4 else 100
     if i == 5:
         j = 1
-    z = int(10 ** (2 + i))
+    z = int(10  (2 + i))
     with open(f"output_delete_data_{i}.txt", 'r', encoding='utf-8') as f:
         time = [[] for _ in range(z)]
-        # leaf_count = [[] for _ in range(j)]
         for i in range(z * j):
             data = f.readline()
             time[i % z].append(np.float32(data[data.find('time: ') + 6: data.find(', leaf')]))
     index = 100
     for i in range(z):
-        time[i] = round((sum(time[i]) / len(time[i])), 4)  # avg value
+        time[i] = round((sum(time[i]) / len(time[i])), 4)
     df2.append(pd.DataFrame(
         {'time': [time[i] for i in range(0, len(time), index)], 'leaf_count': [i for i in range(0, z, index)]}))
 
@@ -108,5 +92,3 @@ ax2.set_ylabel('time')
 pylab.plot(df2[4]['leaf_count'], df2[4]['time'])
 pylab.title('1 дерево в котором 10000000')
 pylab.show()
-=======
->>>>>>> origin/main
